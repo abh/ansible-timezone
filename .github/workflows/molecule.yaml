@@ -21,6 +21,30 @@ jobs:
     needs:
       - lint
     runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - image: "enterpriselinux"
+            tag: "8"
+          - image: "debian"
+            tag: "latest"
+          - image: "debian"
+            tag: "bookworm"
+          - image: "fedora"
+            tag: "36"
+          - image: "fedora"
+            tag: "latest"
+          - image: "fedora"
+            tag: "rawhide"
+          - image: "opensuse"
+            tag: "latest"
+          - image: "ubuntu"
+            tag: "latest"
+          - image: "ubuntu"
+            tag: "focal"
+          - image: "ubuntu"
+            tag: "bionic"
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -29,4 +53,5 @@ jobs:
       - name: molecule
         uses: robertdebock/molecule-action@5.0.3
         with:
-          command: "test"
+          image: ${{ matrix.config.image }}
+          tag: ${{ matrix.config.tag }}
