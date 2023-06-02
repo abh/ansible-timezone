@@ -6,6 +6,10 @@ driver:
 verifier:
   name: ansible
 platforms:
+  - name: ubi8
+    image: registry.access.redhat.com/ubi8/ubi-init
+    pre_build_image: true
+    privileged: true
   - name: timezone-centos7
     image: centos:7
     privileged: true
