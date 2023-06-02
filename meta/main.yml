@@ -2,30 +2,8 @@
 galaxy_info:
   author: Ask Bjørn Hansen (Ryan Yates)
   description: Role for managing timezone.
-  company:
   license: license (Apache 2.0)
-  min_ansible_version: 2.10
-  platforms:
-    - name: Ubuntu
-      versions:
-        - precise
-        - trusty
-        - jammy
-    - name: Debian
-      versions:
-        - squeeze
-        - wheezy
-        - jessie
-    - name: EL
-      versions:
-        - 6
-        - 7
-        - 8
-        - 9
-    - name: Fedora
-      versions:
-        - 19
-        - 20
+  min_ansible_version: "2.10"
   galaxy_tags:
     - system
   role_name: timezone

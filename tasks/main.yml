@@ -1,6 +1,8 @@
 ---
-- import_playbook: timezone.yml
+- name: Linux timezone setup
+  ansible.builtin.import_tasks: timezone.yml
   when: ansible_system == "Linux"
 
-- import_playbook: freebsd.yml
+- name: FreeBSD timezone setup
+  ansible.builtin.import_tasks: freebsd.yml
   when: ansible_system == "FreeBSD"

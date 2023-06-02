@@ -24,7 +24,7 @@ jobs:
 
   test:
     needs:
-      - lint 
+      - lint
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
