@@ -1,12 +1,12 @@
 ---
-- name: Include platform vars
+- name: timezone | Include platform vars
   ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - "../vars/{{ ansible_facts.distribution }}.yml"
     - "../vars/{{ ansible_facts.os_family }}.yml"
   tags: ["timezone"]
 
-- name: Install tzdata for Debian based distros
+- name: timezone | Install tzdata for Debian based distros
   ansible.builtin.apt:
     name: "{{ timezone_package }}"
     update_cache: true
@@ -16,7 +16,7 @@
   tags: ["timezone"]
   become: true
 
-- name: Install tzdata for RedHat based distros
+- name: timezone | Install tzdata for RedHat based distros
   ansible.builtin.yum:
     name: "{{ timezone_package }}"
     state: present
@@ -24,7 +24,7 @@
   tags: ["timezone"]
   become: true
 
-- name: Install tzdata for Archlinux based distros
+- name: timezone | Install tzdata for Archlinux based distros
   community.general.pacman:
     name: "{{ timezone_package }}"
     state: present
@@ -32,7 +32,7 @@
   tags: ["timezone"]
   become: true
 
-- name: Set timezone config
+- name: timezone | Set timezone config
   ansible.builtin.template:
     src: "timezone-{{ ansible_facts.os_family }}.j2"
     dest: "{{ timezone_file }}"
@@ -40,7 +40,7 @@
   tags: ["timezone"]
   become: true
 
-- name: Set link to localtime
+- name: timezone | Set link to localtime
   ansible.builtin.file:
     state: link
     src: "{{ zoneinfo_dir }}{{ timezone }}"
