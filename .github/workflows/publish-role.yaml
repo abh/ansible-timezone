@@ -1,0 +1,52 @@
+---
+name: GitHub Action
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule
+        # https://github.com/marketplace/actions/test-ansible-roles-with-molecule
+        uses: robertdebock/molecule-action@4.0.9
+        with:
+          command: lint
+
+  test:
+    needs:
+      - lint 
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule
+        uses: robertdebock/molecule-action@5.0.3
+        with:
+          command: "--debug test"
+
+  release:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.ref, 'refs/tags/v')
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: galaxy
+        # https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
+        uses: robertdebock/galaxy-action@1.2.1
+        with:
+          galaxy_api_key: ${{ secrets.galaxy_api_key }}
+          git_branch: main
