@@ -18,7 +18,7 @@ jobs:
           path: "${{ github.repository }}"
       - name: molecule
         # https://github.com/marketplace/actions/test-ansible-roles-with-molecule
-        uses: robertdebock/molecule-action@4.0.9
+        uses: robertdebock/molecule-action@5.0.3
         with:
           command: lint
 
@@ -34,7 +34,7 @@ jobs:
       - name: molecule
         uses: robertdebock/molecule-action@5.0.3
         with:
-          command: "--debug test"
+          command: "test"
 
   release:
     needs:
