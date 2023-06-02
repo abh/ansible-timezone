@@ -1,5 +1,5 @@
 Role Name
-========
+=========
 
 timezone
 
@@ -21,12 +21,25 @@ Example Playbook
 ---
 - hosts: all
   roles:
-  - yatesr.timezone
+  - abh.timezone
 
   vars:
-   timezone: America/New_York
+   timezone: America/Los_Angeles
 
 ```
+
+```
+
+---
+- hosts: all
+  roles:
+  - abh.timezone
+
+  vars:
+   timezone: UTC
+
+```
+
 
 License
 -------
@@ -36,4 +49,4 @@ Apache 2.0
 Author Information
 ------------------
 
-Ryan Yates
+Ask Bjørn Hansen (from work by Ryan Yates)
