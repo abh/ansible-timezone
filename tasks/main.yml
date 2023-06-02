@@ -1,2 +1,6 @@
 ---
 - import_playbook: timezone.yml
+  when: ansible_system == "Linux"
+
+- import_playbook: freebsd.yml
+  when: ansible_system == "FreeBSD"

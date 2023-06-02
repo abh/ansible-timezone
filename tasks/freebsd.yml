@@ -1,0 +1,6 @@
+---
+- name: Run tzsetup
+  ansible.builtin.command:
+    cmd: /usr/sbin/tzsetup {{ timezone }}
+  tags: ['timezone']
+  become: true
