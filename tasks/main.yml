@@ -1,8 +1,8 @@
 ---
 - name: Linux timezone setup
   ansible.builtin.include_tasks: timezone.yml
-  when: ansible_system == "Linux"
+  when: ansible_facts['system'] == "Linux"
 
 - name: FreeBSD timezone setup
   ansible.builtin.include_tasks: freebsd.yml
-  when: ansible_system == "FreeBSD"
+  when: ansible_facts['system'] == "FreeBSD"
