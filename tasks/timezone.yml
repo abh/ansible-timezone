@@ -15,7 +15,7 @@
   become: true
 
 - name: timezone | Install tzdata for RedHat based distros
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ timezone_package }}"
     state: present
   when: ansible_facts.os_family == 'RedHat'

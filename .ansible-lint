@@ -3,11 +3,11 @@
 # Ansible managed
 #
 exclude_paths:
-  - ./molecule/default
-  - ./.tox
-  - ./.cache
-  - ./.github
-  - ./requirements.yml
+  - molecule/default
+  - .tox
+  - .cache
+  - .github
+  - requirements.yml
 
 skip_list:
   - yaml[truthy]

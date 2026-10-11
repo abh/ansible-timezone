@@ -1,3 +1,4 @@
+---
 - name: freebsd | Run tzsetup
   ansible.builtin.command:
     cmd: /usr/sbin/tzsetup {{ timezone }}

@@ -6,16 +6,16 @@ on:
     branches:
       - main
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: ansible-lint
-        uses: ansible-community/ansible-lint-action@main
+        uses: ansible/ansible-lint@v26.9.0
 
   test:
     needs:
@@ -47,7 +47,7 @@ jobs:
             tag: "bionic"
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           path: "${{ github.repository }}"
       - name: molecule
