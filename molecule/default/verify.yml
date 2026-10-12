@@ -1,14 +1,18 @@
 ---
 - name: Verify
   hosts: all
-  become: no
-  gather_facts: no
-
+  gather_facts: false
+  vars:
+    expected_timezone: America/New_York
   tasks:
-    - name: Test connection
-      ansible.builtin.ping:
+    - name: Read /etc/localtime
+      ansible.builtin.stat:
+        path: /etc/localtime
+      register: localtime
 
-    - name: Try the package module
-      ansible.builtin.package:
-        name: gzip
-        state: present
+    - name: Check /etc/localtime points at the configured zone
+      ansible.builtin.assert:
+        that:
+          - localtime.stat.islnk
+          - localtime.stat.lnk_target is search(expected_timezone ~ '$')
+        fail_msg: "/etc/localtime -> {{ localtime.stat.lnk_target | default('not a link') }}"

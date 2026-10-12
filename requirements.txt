@@ -1,6 +1,4 @@
-# Pinning ansible-compat version due to [bug](https://github.com/ansible-community/molecule/issues/3903)
-ansible-compat == 3.0.2
-molecule == 5.*
-molecule-plugins[docker] == 23.*
-ansible-lint == 6.*
-paramiko == 3.*
+ansible-core == 2.21.*
+molecule == 26.*
+molecule-plugins[docker] == 26.*
+docker == 7.*

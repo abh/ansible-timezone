@@ -24,34 +24,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        config:
-          - image: "enterpriselinux"
-            tag: "8"
-          - image: "debian"
-            tag: "latest"
-          - image: "debian"
-            tag: "bookworm"
-          - image: "fedora"
-            tag: "36"
-          - image: "fedora"
-            tag: "latest"
-          - image: "fedora"
-            tag: "rawhide"
-          - image: "opensuse"
-            tag: "latest"
-          - image: "ubuntu"
-            tag: "latest"
-          - image: "ubuntu"
-            tag: "focal"
-          - image: "ubuntu"
-            tag: "bionic"
+        image:
+          - "debian:bookworm"
+          - "debian:trixie"
+          - "ubuntu:22.04"
+          - "ubuntu:24.04"
+          - "rockylinux/rockylinux:9"
+          - "fedora:latest"
+          - "archlinux:latest"
     steps:
       - name: checkout
         uses: actions/checkout@v7
+      - name: setup python
+        uses: actions/setup-python@v7
         with:
-          path: "${{ github.repository }}"
+          python-version: "3.13"
+      - name: install molecule
+        run: pip install -r requirements.txt
       - name: molecule
-        uses: robertdebock/molecule-action@5.0.3
-        with:
-          image: ${{ matrix.config.image }}
-          tag: ${{ matrix.config.tag }}
+        run: molecule test
+        env:
+          MOLECULE_IMAGE: ${{ matrix.image }}
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"

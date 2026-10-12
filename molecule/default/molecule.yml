@@ -2,34 +2,24 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
-    requirements-file: requirements.yml
+    role-file: ${MOLECULE_PROJECT_DIRECTORY}/requirements.yml
+    requirements-file: ${MOLECULE_PROJECT_DIRECTORY}/requirements.yml
 driver:
   name: docker
-verifier:
-  name: ansible
 platforms:
-  - name: ubi8
-    image: registry.access.redhat.com/ubi8/ubi-init
+  - name: instance
+    image: "${MOLECULE_IMAGE:-debian:trixie}"
     pre_build_image: true
-    privileged: true
-  - name: timezone-centos7
-    image: centos:7
-    privileged: true
-  - name: timezone-centos6
-    image: centos:6
-    privileged: true
-  - name: timezone-debian
-    image: debian
-    privileged: true
+    command: sleep infinity
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      remote_tmp: /tmp
+  env:
+    ANSIBLE_ROLES_PATH: "${MOLECULE_PROJECT_DIRECTORY}/.."
   playbooks:
-    converge: playbook.yml
-  lint:
-    name: ansible-lint
+    prepare: prepare.yml
+    converge: converge.yml
+    verify: verify.yml
+verifier:
+  name: ansible
 scenario:
   name: default
